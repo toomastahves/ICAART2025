@@ -13,8 +13,8 @@
         "model_path":"./model_path/clfcn/checkpoint_289_fusion.pth"
     },
     "Log": {
-        "logdir_rgb": "/gpfs/mariana/smbhome/junygu/logs/14-11-2023/",
-        "logdir_lidar": "/gpfs/mariana/smbhome/junygu/logs/lidar/",
+        "logdir_rgb": "/media/storage/claude/logs/",
+        "logdir_lidar": "/media/storage/claude/logs/",
         "logdir_fusion": "/media/storage/claude/logs/29-09-2024/"
     },
     "CLFT": {
