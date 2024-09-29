@@ -139,7 +139,7 @@ class Trainer(object):
                 train_loss += loss.item()
                 loss.backward()
                 self.optimizer_clft.step()
-                progress_bar.set_description(f'DPT train loss:{loss:.4f}')
+                progress_bar.set_description(f'CLFT train loss:{loss:.4f}')
 
             # The IoU of one epoch
             train_epoch_IoU = overlap_cum / union_cum
@@ -166,13 +166,11 @@ class Trainer(object):
             writer.close()
 
             early_stop_index = round(valid_epoch_loss, 4)
-            early_stopping(early_stop_index, epoch, self.model,
-                           self.optimizer_clft)
+            early_stopping(early_stop_index, epoch, modality, self.model, self.optimizer_clft)
             if ((epoch + 1) % self.config['General']['save_epoch'] == 0 and
                     epoch > 0):
                 print('Saving model for every 10 epochs...')
-                save_model_dict(self.config, epoch, self.model,
-                                self.optimizer_clft, True)
+                save_model_dict(self.config, epoch, self.model, modality, self.optimizer_clft, True)
                 print('Saving Model Complete')
             if early_stopping.early_stop_trigger is True:
                 break
