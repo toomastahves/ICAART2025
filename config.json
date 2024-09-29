@@ -2,7 +2,7 @@
     "General":{
         "device":"cuda:0",
         "epochs":400,
-        "batch_size":2,
+        "batch_size":12,
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":false,
@@ -15,7 +15,7 @@
     "Log": {
         "logdir_rgb": "/gpfs/mariana/smbhome/junygu/logs/14-11-2023/",
         "logdir_lidar": "/gpfs/mariana/smbhome/junygu/logs/lidar/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/junygu/logs/17-11-2013/"
+        "logdir_fusion": "/media/storage/claude/logs/29-09-2024/"
     },
     "CLFT": {
         "clft_lr": 8e-5,

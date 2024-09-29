@@ -143,11 +143,9 @@ class Trainer(object):
 
             # The IoU of one epoch
             train_epoch_IoU = overlap_cum / union_cum
-            print(
-                f'Training vehicles IoU for Epoch:'
-                f' {train_epoch_IoU[0]:.4f}')
-            print(
-                f'Training human IoU for Epoch: {train_epoch_IoU[1]:.4f}')
+            print(f'Training Cyclist IoU for Epoch: {train_epoch_IoU[0]:.4f}')
+            print(f'Training Pedestrian IoU for Epoch: {train_epoch_IoU[1]:.4f}')
+            print(f'Training Sign IoU for Epoch: {train_epoch_IoU[2]:.4f}')
             # The loss_rgb of one epoch
             train_epoch_loss = train_loss / (i + 1)
             print(f'Average Training Loss for Epoch: {train_epoch_loss:.4f}')
@@ -161,15 +159,13 @@ class Trainer(object):
             writer.add_scalars('Loss', {'train': train_epoch_loss,
                                         'valid': valid_epoch_loss}, epoch)
             # Plot the train and validation IoU in Tensorboard
-            writer.add_scalars('Vehicle_IoU',
-                               {'train': train_epoch_IoU[0],
-                                'valid': valid_epoch_IoU[0]}, epoch)
-            writer.add_scalars('Human_IoU',
-                               {'train': train_epoch_IoU[1],
-                                'valid': valid_epoch_IoU[1]}, epoch)
+            writer.add_scalars('Vehicle_IoU', {'train': train_epoch_IoU[0],
+                                               'valid': valid_epoch_IoU[0]}, epoch)
+            writer.add_scalars('Human_IoU', {'train': train_epoch_IoU[1],
+                                             'valid': valid_epoch_IoU[1]}, epoch)
             writer.close()
 
-            early_stop_index = round(valid_epoch_IoU[0].item(), 4)
+            early_stop_index = round(valid_epoch_loss, 4)
             early_stopping(early_stop_index, epoch, self.model,
                            self.optimizer_clft)
             if ((epoch + 1) % self.config['General']['save_epoch'] == 0 and
@@ -213,20 +209,16 @@ class Trainer(object):
 
                 loss = self.criterion(output_seg, batch['anno'])
                 valid_loss += loss.item()
-                progress_bar.set_description(f'valid fusion loss:'
-                                             f'{loss:.4f}')
+                progress_bar.set_description(f'valid fusion loss: {loss:.4f}')
+
         # The IoU of one epoch
         valid_epoch_IoU = overlap_cum / union_cum
-        print(
-            f'Validation vehicles IoU for Epoch:'
-            f' {valid_epoch_IoU[0]:.4f}')
-        print(
-            f'Validation human IoU for Epoch:'
-            f' {valid_epoch_IoU[1]:.4f}')
+        print(f'Validation cyclist IoU for Epoch: {valid_epoch_IoU[0]:.4f}')
+        print(f'Validation pedestrian IoU for Epoch: {valid_epoch_IoU[1]:.4f}')
+        print(f'Validation sign IoU for Epoch: {valid_epoch_IoU[2]:.4f}')
         # The loss_rgb of one epoch
         valid_epoch_loss = valid_loss / (i + 1)
-        print(f'Average Validation Loss for Epoch: '
-              f'{valid_epoch_loss:.4f}')
+        print(f'Average Validation Loss for Epoch: {valid_epoch_loss:.4f}')
 
         return valid_epoch_loss, valid_epoch_IoU
 
