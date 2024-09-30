@@ -120,21 +120,17 @@ class Trainer(object):
 
                 # 1xHxW -> HxW
                 output_seg = output_seg.squeeze(1)
-                # print(output_seg)
-                # print(output_seg.size())
+
                 anno = batch['anno']
-                # print(1 in anno)
+
                 batch_overlap, batch_pred, batch_label, batch_union = find_overlap_1(self.nclasses, output_seg, anno)
-                # print(batch_label)
+
                 overlap_cum += batch_overlap
                 pred_cum += batch_pred
                 label_cum += batch_label
                 union_cum += batch_union
 
                 loss = self.criterion(output_seg, batch['anno'])
-                # w_rgb = 1.1
-                # w_lid = 0.9
-                # loss = w_rgb*loss_rgb + w_lid*loss_lidar + loss_fusion
 
                 train_loss += loss.item()
                 loss.backward()
