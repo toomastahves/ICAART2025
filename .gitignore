@@ -14,8 +14,6 @@ install
 result_screenshots
 .idea
 .ipy*
-slurm*
-*.slurm
 *.out
 *.pth
 .ipython*
