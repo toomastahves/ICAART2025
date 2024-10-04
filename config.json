@@ -2,20 +2,20 @@
     "General":{
         "device":"cuda:0",
         "epochs":400,
-        "batch_size":4,
+        "batch_size":32,
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":false,
-        "resume_training_model_path": "/gpfs/mariana/smbhome/junygu/logs/17-11-2023/checkpoint_280.pth",
+        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/04-10-2024/checkpoint_280.pth",
 	    "reset_lr":false,
-        "early_stop_patience": 50,
+        "early_stop_patience": 200,
         "save_epoch": 20,
         "model_path":"./checkpoint_38.pth"
     },
     "Log": {
-        "logdir_rgb": "/media/storage/claude/logs/",
-        "logdir_lidar": "/media/storage/claude/logs/",
-        "logdir_fusion": "/media/storage/claude/logs/29-09-2024/"
+        "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/",
+        "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/",
+        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/04-10-2024/"
     },
     "CLFT": {
         "clft_lr": 8e-5,
