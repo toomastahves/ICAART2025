@@ -16,7 +16,6 @@ from utils.lidar_process import get_resized_lid_img_val
 from utils.lidar_process import get_unresized_lid_img_val
 from utils.lidar_process import crop_pointcloud
 
-
 class DataAugment(object):
     def __init__(self, config, p_flip, p_crop, p_rot, rgb, anno, points_set,
                 camera_coord):
@@ -97,28 +96,3 @@ class DataAugment(object):
                                InterpolationMode.NEAREST, fill=0)
 
         return self.rgb, self.anno, self.X, self.Y, self.Z
-
-    # def colour_jitter(self):
-    #     jitter_param = self.config['Dataset']['transforms']['color_jitter']
-    #     rgb_colour_jitter = transforms.ColorJitter(jitter_param[0],
-    #                                                jitter_param[1],
-    #                                                jitter_param[2],
-    #                                                jitter_param[3])
-    #     self.rgb = rgb_colour_jitter(self.rgb)
-    #     return self.rgb, self.anno, self.X, self.Y, self.Z
-
-    # def random_vertical_flip(self):
-    #     if random.random() > 0.5:
-    #         w, h = self.rgb.size()[1:]
-    #         self.rgb = TF.vflip(self.rgb)
-    #         self.anno = TF.vflip(self.anno)
-    #
-    #         if self.X is None and self.Y is None and self.Z is None:
-    #             self.X, self.Y, self.Z = get_unresized_lid_img_val(
-    #                                                         h, w,
-    #                                                         self.points_set,
-    #                                                         self.camera_coord)
-    #         self.X = TF.vflip(self.X)
-    #         self.Y = TF.vflip(self.Y)
-    #         self.Z = TF.vflip(self.Z)
-    #     return self.rgb, self.anno, self.X, self.Y, self.Z

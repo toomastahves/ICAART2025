@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-import sys
 import argparse
 import numpy as np
 
 from torch.utils.data import DataLoader
-from torch.utils.data import ConcatDataset
 
 from tools.trainer import Trainer
 from tools.dataset import Dataset
-
 
 with open('config.json', 'r') as f:
     config = json.load(f)
@@ -41,6 +38,3 @@ valid_dataloader = DataLoader(valid_data,
                               drop_last=True)
 
 trainer.train_clft(train_dataloader, valid_dataloader, modal=args.mode)
-
-
-
