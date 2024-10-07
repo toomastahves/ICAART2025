@@ -4,6 +4,8 @@ import os
 import cv2
 import torch
 import numpy as np
+import shutil
+import datetime
 
 
 label_colors_list = [
@@ -191,3 +193,10 @@ class EarlyStopping(object):
             save_model_dict(self.config, epoch, modality, model, optimizer)
             print('Saving Model...')
             self.count = 0
+
+def create_config_snapshot():
+    source_file = 'config.json'
+    timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+    destination_file = f'config_{timestamp}.json'
+    shutil.copy(source_file, destination_file)
+    print(f'Config snapshot created {destination_file}')
