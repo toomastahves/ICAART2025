@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import json
 import numpy as np
+import argparse
 
 from torch.utils.data import DataLoader
 
@@ -9,7 +10,12 @@ from tools.trainer import Trainer
 from tools.dataset import Dataset
 from utils.helpers import create_config_snapshot
 
-with open('config.json', 'r') as f:
+parser = argparse.ArgumentParser(description='CLFT and CLFCN Training')
+parser.add_argument('-c', '--config', type=str, required=False, default='config.json', help='The path of the config file')
+args = parser.parse_args()
+config_file = args.config
+
+with open(config_file, 'r') as f:
     config = json.load(f)
 
 np.random.seed(config['General']['seed'])
