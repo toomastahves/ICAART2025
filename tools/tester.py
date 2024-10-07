@@ -15,21 +15,20 @@ from clft.clft import CLFT
 
 
 class Tester(object):
-    def __init__(self, config, args):
+    def __init__(self, config):
         super().__init__()
         self.config = config
-        self.args = args
 
         self.device = torch.device(self.config['General']['device'] if torch.cuda.is_available() else "cpu")
         print("device: %s" % self.device)
 
-        if args.backbone == 'clfcn':
+        if config['CLI']['backbone'] == 'clfcn':
             self.model = FusionNet()
-            print(f'Using backbone {args.backbone}')
+            print(f"Using backbone {config['CLI']['backbone']}")
             self.optimizer_fcn = torch.optim.Adam(self.model.parameters(), lr=config['CLFCN']['clfcn_lr'])
             self.scheduler_fcn = ReduceLROnPlateau(self.optimizer_fcn)
 
-        elif args.backbone == 'clft':
+        elif config['CLI']['backbone'] == 'clft':
             resize = config['Dataset']['transforms']['resize']
             self.model = CLFT(RGB_tensor_size=(3, resize, resize),
                               XYZ_tensor_size=(3, resize, resize),
@@ -42,7 +41,7 @@ class Tester(object):
                               nclasses=len(config['Dataset']['classes']),
                               type=config['CLFT']['type'],
                               model_timm=config['CLFT']['model_timm'], )
-            print(f'Using backbone {args.backbone}')
+            print(f"Using backbone {config['CLI']['backbone']}")
 
             model_path = config['General']['model_path']
             self.model.load_state_dict(torch.load(model_path, map_location=self.device)['model_state_dict'])

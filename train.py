@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-import argparse
 import numpy as np
 
 from torch.utils.data import DataLoader
@@ -12,16 +11,8 @@ from tools.dataset import Dataset
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-parser = argparse.ArgumentParser(description='CLFT and CLFCN Training')
-parser.add_argument('-bb', '--backbone', required=True,
-                    choices=['clfcn', 'clft'],
-                    help='Use the backbone of training, clft or clfcn')
-parser.add_argument('-m', '--mode', type=str, required=True,
-                    choices=['rgb', 'lidar', 'cross_fusion'],
-                    help='Output mode (lidar, rgb or cross_fusion)')
-args = parser.parse_args()
 np.random.seed(config['General']['seed'])
-trainer = Trainer(config, args)
+trainer = Trainer(config)
 
 train_data = Dataset(config, 'train', './waymo_dataset/splits_clft/train_all.txt')
 train_dataloader = DataLoader(train_data,
@@ -37,4 +28,4 @@ valid_dataloader = DataLoader(valid_data,
                               pin_memory=True,
                               drop_last=True)
 
-trainer.train_clft(train_dataloader, valid_dataloader, modal=args.mode)
+trainer.train_clft(train_dataloader, valid_dataloader, modal=config['CLI']['mode'])

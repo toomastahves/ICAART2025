@@ -1,4 +1,9 @@
 {
+    "CLI": {
+        "backbone": "clft",
+        "mode": "rgb",
+        "path": "./waymo_dataset/splits_clft/test_day_fair.txt"
+    },
     "General":{
         "device":"cuda:0",
         "epochs":400,
@@ -10,7 +15,7 @@
 	    "reset_lr":false,
         "early_stop_patience": 200,
         "save_epoch": 20,
-        "model_path":"./checkpoint_38.pth"
+        "model_path":"/gpfs/mariana/smbhome/totahv/logs/checkpoint_42.pth"
     },
     "Log": {
         "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/",
