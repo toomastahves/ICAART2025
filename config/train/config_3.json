@@ -1,9 +1,9 @@
 {
-    "Summary": "Default configuration template",
+    "Summary": "CLFT, rgb, 1024, vit_large_patch16_384, [5, 11, 17, 23]",
     "CLI": {
-        "backbone": "",
-        "mode": "",
-        "path": ""
+        "backbone": "clft",
+        "mode": "rgb",
+        "path": "./waymo_dataset/splits_clft/test_day_fair.txt"
     },
     "General":{
         "device":"cuda:0",
@@ -24,9 +24,9 @@
         "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/04-10-2024/"
     },
     "CLFT": {
-        "emb_dim": 0,
-        "hooks": [],
-        "model_timm": "",
+        "emb_dim": 1024,
+        "hooks": [5, 11, 17, 23],
+        "model_timm": "vit_large_patch16_384",
         "clft_lr": 8e-5,
         "patch_size":16,
         "reassembles": [4, 8, 16, 32],

@@ -1,5 +1,5 @@
 #!/bin/bash 
-#SBATCH --job-name=totahv                ### job name
+#SBATCH --job-name=totahv-1                ### job name
 #SBATCH -n 1
 #SBATCH -p gpu                  ### use gpu
 #SBATCH --gres=gpu:A100:1               ### specifying the GPU type
@@ -11,4 +11,4 @@
 #rsync -arz ./waymo_dataset /tmp/
 
 ## run job    
-./train.sh 
+./train.sh $1

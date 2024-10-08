@@ -1,9 +1,9 @@
 {
-    "Summary": "Default configuration template",
+    "Summary": "CLFCN, rgb",
     "CLI": {
-        "backbone": "",
-        "mode": "",
-        "path": ""
+        "backbone": "clfcn",
+        "mode": "rgb",
+        "path": "./waymo_dataset/splits_clft/test_day_fair.txt"
     },
     "General":{
         "device":"cuda:0",
