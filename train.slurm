@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=40G
 #SBATCH -t 5-0                  ### time limit 
-
+#SBATCH --mail-type=ALL
 #rsync -arz ./waymo_dataset /tmp/
 
 ## run job    
