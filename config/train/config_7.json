@@ -8,20 +8,20 @@
     "General":{
         "device":"cuda:0",
         "epochs":400,
-        "batch_size":32,
+        "batch_size":24,
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":false,
-        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_7/08-10-2024/checkpoint_280.pth",
+        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_7/progress_save/",
 	    "reset_lr":false,
         "early_stop_patience": 200,
         "save_epoch": 20,
-        "model_path":"/gpfs/mariana/smbhome/totahv/logs/config_7/checkpoint_42.pth"
+        "model_path":"/gpfs/mariana/smbhome/totahv/logs/config_7/"
     },
     "Log": {
         "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_7/",
         "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_7/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_7/08-10-2024/"
+        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_7/"
     },
     "CLFT": {
         "emb_dim": 768,

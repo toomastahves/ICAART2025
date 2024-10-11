@@ -8,7 +8,7 @@
     "General":{
         "device":"cuda:0",
         "epochs":400,
-        "batch_size":32,
+        "batch_size":24,
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":false,
@@ -21,7 +21,7 @@
     "Log": {
         "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_2/",
         "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_2/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_2/08-10-2024/"
+        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_2/"
     },
     "CLFT": {
         "emb_dim": 768,
