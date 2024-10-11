@@ -1,5 +1,5 @@
 {
-    "Summary": "CLFT, rgb, 768, vit_base_resnet50_384, [2, 5, 8, 11]",
+    "Summary": "Test: night/rain. CLFT, rgb, 768, vit_base_resnet50_384, [2, 5, 8, 11]",
     "CLI": {
         "backbone": "clft",
         "mode": "rgb",
