@@ -1,5 +1,5 @@
 #!/bin/bash 
-#SBATCH --job-name=totahv-1                ### job name
+#SBATCH --job-name=test-1                ### job name
 #SBATCH -n 1
 #SBATCH -p gpu                  ### use gpu
 #SBATCH --gres=gpu:A100:1               ### specifying the GPU type
@@ -10,4 +10,4 @@
 #SBATCH --mail-type=ALL
 
 ## run job    
-./train.sh $1
+./test.sh $1
