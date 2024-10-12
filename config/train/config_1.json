@@ -12,11 +12,11 @@
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":true,
-        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_199.pth",
+        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_259.pth",
 	    "reset_lr":false,
         "early_stop_patience": 200,
         "save_epoch": 20,
-        "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_199.pth"
+        "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_259.pth"
     },
     "Log": {
         "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_1/",
