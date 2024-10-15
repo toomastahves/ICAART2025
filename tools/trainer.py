@@ -156,8 +156,7 @@ class Trainer(object):
 
             early_stop_index = round(valid_epoch_loss, 4)
             early_stopping(early_stop_index, epoch, self.model, modality, self.optimizer_clft)
-            if ((epoch + 1) % self.config['General']['save_epoch'] == 0 and
-                    epoch > 0):
+            if ((epoch + 1) % self.config['General']['save_epoch'] == 0 and epoch > 0):
                 print('Saving model for every 10 epochs...')
                 save_model_dict(self.config, epoch, modality, self.model, self.optimizer_clft, True)
                 print('Saving Model Complete')

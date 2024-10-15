@@ -15,7 +15,7 @@
         "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_12/progress_save/",
 	    "reset_lr":false,
         "early_stop_patience": 200,
-        "save_epoch": 20,
+        "save_epoch": 5,
         "model_path":"/gpfs/mariana/smbhome/totahv/logs/config_12/"
     },
     "Log": {
