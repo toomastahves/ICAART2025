@@ -2,9 +2,7 @@
     "Summary": "CLFT, rgb, 768, vit_base_patch16_384, [2, 5, 8, 11]",
     "CLI": {
         "backbone": "clft",
-        "mode": "rgb"
-    },
-    "Test": {
+        "mode": "rgb",
         "path": "./waymo_dataset/splits_clft/"
     },
     "General":{

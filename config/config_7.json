@@ -3,7 +3,7 @@
     "CLI": {
         "backbone": "clft",
         "mode": "cross_fusion",
-        "path": "./waymo_dataset/splits_clft/test_day_fair.txt"
+        "path": "./waymo_dataset/splits_clft/"
     },
     "General":{
         "device":"cuda:0",
