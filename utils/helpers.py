@@ -6,7 +6,7 @@ import torch
 import numpy as np
 import shutil
 import datetime
-
+import glob
 
 label_colors_list = [
         (0, 0, 0),        # B
@@ -117,6 +117,14 @@ def image_overlay(image, segmented_image):
     cv2.addWeighted(segmented_image, alpha, image, beta, gamma, image)
     return image
 
+def get_model_path(config):
+    model_path = config['General']['resume_training_model_path']
+    if model_path != '':
+        return config['General']['resume_training_model_path']
+    # If model path is empty then resume from last checkpoint
+    files = glob.glob(config['Log']['logdir_rgb']+'progress_save/*.pth')
+    latest_file = max(files, key=os.path.getctime)
+    return latest_file
 
 def save_model_dict(config, epoch, modality, model, optimizer, save_check=False):
     sensor_modality = modality

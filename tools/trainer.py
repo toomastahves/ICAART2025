@@ -11,7 +11,7 @@ from torch.utils.tensorboard import SummaryWriter
 from clfcn.fusion_net import FusionNet
 from utils.metrics import find_overlap_1
 from clft.clft import CLFT
-from utils.helpers import EarlyStopping
+from utils.helpers import EarlyStopping, get_model_path
 from utils.helpers import save_model_dict
 from utils.helpers import adjust_learning_rate
 
@@ -65,8 +65,8 @@ class Trainer(object):
         self.criterion = nn.CrossEntropyLoss(weight=weight_loss).to(self.device)
 
         if self.config['General']['resume_training'] is True:
-            print('Resume training...')
-            model_path = self.config['General']['resume_training_model_path']
+            model_path = get_model_path(config)
+            print(f'Resume training on {model_path}')
             checkpoint = torch.load(model_path, map_location=self.device)
 
             if self.config['General']['reset_lr'] is True:
