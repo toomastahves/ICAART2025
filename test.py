@@ -21,7 +21,7 @@ with open(config_file, 'r') as f:
 np.random.seed(config['General']['seed'])
 tester = Tester(config)
 
-test_data_path = config['CLI']['path']
+test_data_path = config['Test']['path']
 test_data_files = [
     'test_day_fair.txt',
     'test_night_fair.txt',
