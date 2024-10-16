@@ -66,25 +66,26 @@ class Trainer(object):
 
         if self.config['General']['resume_training'] is True:
             model_path = get_model_path(config)
-            print(f'Resume training on {model_path}')
-            checkpoint = torch.load(model_path, map_location=self.device)
+            if model_path:
+                print(f'Resume training on {model_path}')
+                checkpoint = torch.load(model_path, map_location=self.device)
 
-            if self.config['General']['reset_lr'] is True:
-                print('Reset the epoch to 0')
-                self.finished_epochs = 0
-            else:
-                self.finished_epochs = checkpoint['epoch']
-                print( f"Finished epochs in previous training: {self.finished_epochs}")
+                if self.config['General']['reset_lr'] is True:
+                    print('Reset the epoch to 0')
+                    self.finished_epochs = 0
+                else:
+                    self.finished_epochs = checkpoint['epoch']
+                    print( f"Finished epochs in previous training: {self.finished_epochs}")
 
-            if self.config['General']['epochs'] <= self.finished_epochs:
-                print('Current epochs amount is smaller than finished epochs!!!')
-                print(f"Please setting the epochs bigger than {self.finished_epochs}")
-                sys.exit()
-            else:
-                print('Loading trained model weights...')
-                self.model.load_state_dict(checkpoint['model_state_dict'])
-                print('Loading trained optimizer...')
-                self.optimizer_clft.load_state_dict(checkpoint['optimizer_state_dict'])
+                if self.config['General']['epochs'] <= self.finished_epochs:
+                    print('Current epochs amount is smaller than finished epochs!!!')
+                    print(f"Please setting the epochs bigger than {self.finished_epochs}")
+                    sys.exit()
+                else:
+                    print('Loading trained model weights...')
+                    self.model.load_state_dict(checkpoint['model_state_dict'])
+                    print('Loading trained optimizer...')
+                    self.optimizer_clft.load_state_dict(checkpoint['optimizer_state_dict'])
 
         else:
             print('Training from the beginning')

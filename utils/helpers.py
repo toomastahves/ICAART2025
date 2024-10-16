@@ -95,7 +95,6 @@ def draw_test_segmentation_map(outputs):
     segmented_image = np.stack([red_map, green_map, black_map], axis=2)
     return segmented_image
 
-
 def image_overlay(image, segmented_image):
     alpha = 0.4  # how much transparency to apply
     beta = 1 - alpha  # alpha + beta should equal 1
@@ -107,8 +106,10 @@ def get_model_path(config):
     model_path = config['General']['resume_training_model_path']
     if model_path != '':
         return config['General']['resume_training_model_path']
-    # If model path is empty then resume from last checkpoint
+    # If checkpoint not specified then resume from previous checkpoint
     files = glob.glob(config['Log']['logdir']+'progress_save/*.pth')
+    if len(files) == 0:
+        return False
     latest_file = max(files, key=os.path.getctime)
     return latest_file
 
