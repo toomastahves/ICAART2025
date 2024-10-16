@@ -62,10 +62,12 @@ class Tester(object):
 
             background_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
             background_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
-            vehicle_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
-            vehicle_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
-            human_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
-            human_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
+            cyclist_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
+            cyclist_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
+            pedestrian_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
+            pedestrian_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
+            sign_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
+            sign_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
 
             for i, batch in enumerate(progress_bar):
                 batch['rgb'] = batch['rgb'].to(self.device, non_blocking=True)
@@ -88,10 +90,12 @@ class Tester(object):
                 batch_precision = 1.0 * batch_overlap / (np.spacing(1) + batch_pred)
                 batch_recall = 1.0 * batch_overlap / (np.spacing(1) + batch_label)
 
-                vehicle_pre[i] = batch_precision[0]
-                vehicle_rec[i] = batch_recall[0]
-                human_pre[i] = batch_precision[1]
-                human_rec[i] = batch_recall[1]
+                cyclist_pre[i] = batch_precision[0]
+                cyclist_rec[i] = batch_recall[0]
+                pedestrian_pre[i] = batch_precision[1]
+                pedestrian_rec[i] = batch_recall[1]
+                sign_pre[i] = batch_precision[2]
+                sign_rec[i] = batch_recall[2]
 
                 progress_bar.set_description(f'CYCLIST:IoU->{batch_IoU[0]:.4f} '
                                              f'PEDESTRIAN:IoU->{batch_IoU[1]:.4f} '
@@ -102,20 +106,21 @@ class Tester(object):
             cum_precision = overlap_cum / pred_cum
             cum_recall = overlap_cum / label_cum
 
-            vehicle_AP = auc_ap(vehicle_pre, vehicle_rec)
-            human_AP = auc_ap(human_pre, human_rec)
+            cyclist_AP = auc_ap(cyclist_pre, cyclist_rec)
+            pedestrian_AP = auc_ap(pedestrian_pre, pedestrian_rec)
+            sign_AP = auc_ap(sign_pre, sign_rec)
             print('-----------------------------------------')
             print(f'CYCLIST:CUM_IoU->{cum_IoU[0]:.4f} '
                   f'CUM_Precision->{cum_precision[0]:.4f} '
                   f'CUM_Recall->{cum_recall[0]:.4f} '
-                  f'Average Precision->{vehicle_AP:.4f} \n')
+                  f'Average Precision->{cyclist_AP:.4f} \n')
             print(f'PEDESTRIAN:CUM_IoU->{cum_IoU[1]:.4f} '
                   f'CUM_Precision->{cum_precision[1]:.4f} '
                   f'CUM_Recall->{cum_recall[1]:.4f} '
-                  f'Average Precision->{human_AP:.4f} ')
+                  f'Average Precision->{pedestrian_AP:.4f} ')
             print(f'SIGN:CUM_IoU->{cum_IoU[2]:.4f} '
                   f'CUM_Precision->{cum_precision[2]:.4f} '
                   f'CUM_Recall->{cum_recall[2]:.4f} '
-                  f'Average Precision->{human_AP:.4f} ')
+                  f'Average Precision->{sign_AP:.4f} ')
             print('-----------------------------------------')
             print('Testing of the subset completed')
