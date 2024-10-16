@@ -126,7 +126,7 @@ class Tester(object):
             print('Testing of the subset completed')
             self.save_test_results(cum_IoU, cum_precision, cum_recall, average_precision, result_file)
 
-    def save_test_results(cum_IoU, cum_precision, cum_recall, average_precision, result_file):
+    def save_test_results(self, cum_IoU, cum_precision, cum_recall, average_precision, result_file):
         with open(result_file, 'a') as file:
             file.write('type,cum_IoU,cum_precision,cum_recall,average_precision\n')
             file.write(f'cyclist,{cum_IoU[0]:.4f},{cum_precision[0]:.4f},{cum_recall[0]:.4f},{average_precision[0]:.4f}\n')
