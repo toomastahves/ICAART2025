@@ -21,14 +21,26 @@ with open(config_file, 'r') as f:
 np.random.seed(config['General']['seed'])
 tester = Tester(config)
 
-test_data = Dataset(config, 'test', config['CLI']['path'])
-print(f"Testing with the path {config['CLI']['path']}")
+test_data_path = config['CLI']['path']
+test_data_files = [
+    'test_day_fair.txt',
+    'test_night_fair.txt',
+    'test_day_rain.txt',
+    'test_night_rain.txt'
+]
 
-test_dataloader = DataLoader(test_data,
-                             batch_size=config['General']['batch_size'],
-                             shuffle=False,
-                             pin_memory=True,
-                             drop_last=True)
+for file in test_data_files:
+    path = test_data_path + test_data_files
+    print(f"Testing with the path {path}")
 
-tester.test_clft(test_dataloader, config['CLI']['mode'], config['Log']['logdir'])
-print('Testing is completed')
+    test_data = Dataset(config, 'test', path)
+
+    test_dataloader = DataLoader(test_data,
+                                batch_size=config['General']['batch_size'],
+                                shuffle=False,
+                                pin_memory=True,
+                                drop_last=True)
+
+    result_file = config['Log']['logdir'] + 'result_' + file
+    tester.test_clft(test_dataloader, config['CLI']['mode'], result_file)
+    print('Testing is completed')

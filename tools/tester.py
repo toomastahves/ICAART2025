@@ -53,7 +53,7 @@ class Tester(object):
         self.nclasses = len(config['Dataset']['classes'])
         self.model.eval()
 
-    def test_clft(self, test_dataloader, modal, test_result_path):
+    def test_clft(self, test_dataloader, modal, result_file):
         print('Testing...')
         overlap_cum, pred_cum, label_cum, union_cum = 0, 0, 0, 0
         modality = modal
@@ -124,10 +124,10 @@ class Tester(object):
                   f'Average Precision->{sign_AP:.4f} ')
             print('-----------------------------------------')
             print('Testing of the subset completed')
-            self.save_test_results(test_result_path, cum_IoU, cum_precision, cum_recall, average_precision)
+            self.save_test_results(cum_IoU, cum_precision, cum_recall, average_precision, result_file)
 
-    def save_test_results(test_result_path, cum_IoU, cum_precision, cum_recall, average_precision):
-        with open(test_result_path, 'a') as file:
+    def save_test_results(cum_IoU, cum_precision, cum_recall, average_precision, result_file):
+        with open(result_file, 'a') as file:
             file.write('type,cum_IoU,cum_precision,cum_recall,average_precision\n')
             file.write(f'cyclist,{cum_IoU[0]:.4f},{cum_precision[0]:.4f},{cum_recall[0]:.4f},{average_precision[0]:.4f}\n')
             file.write(f'pedestrian,{cum_IoU[1]:.4f},{cum_precision[1]:.4f},{cum_recall[1]:.4f},{average_precision[1]:.4f}\n')

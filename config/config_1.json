@@ -1,9 +1,11 @@
 {
-    "Summary": "Test: day/rain. CLFT, rgb, 768, vit_base_patch16_384, [2, 5, 8, 11]",
+    "Summary": "CLFT, rgb, 768, vit_base_patch16_384, [2, 5, 8, 11]",
     "CLI": {
         "backbone": "clft",
-        "mode": "rgb",
-        "path": "./waymo_dataset/splits_clft/test_day_rain.txt"
+        "mode": "rgb"
+    },
+    "Test": {
+        "path": "./waymo_dataset/splits_clft/"
     },
     "General":{
         "device":"cuda:0",
@@ -11,17 +13,15 @@
         "batch_size":24,
         "path_predicted_images":"output",
         "seed":0,
-        "resume_training":false,
-        "resume_training_model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_199.pth",
+        "resume_training":true,
+        "resume_training_model_path": "",
 	    "reset_lr":false,
         "early_stop_patience": 200,
-        "save_epoch": 20,
-        "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_199.pth"
+        "save_epoch": 5,
+        "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_1/progress_save/checkpoint_339.pth"
     },
     "Log": {
-        "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_1/",
-        "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_1/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_1/"
+        "logdir": "/gpfs/mariana/smbhome/totahv/logs/config_1/"
     },
     "CLFT": {
         "emb_dim": 768,
