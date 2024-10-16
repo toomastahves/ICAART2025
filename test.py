@@ -30,7 +30,7 @@ test_data_files = [
 ]
 
 for file in test_data_files:
-    path = test_data_path + test_data_files
+    path = test_data_path + file
     print(f"Testing with the path {path}")
 
     test_data = Dataset(config, 'test', path)
