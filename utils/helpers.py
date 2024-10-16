@@ -112,22 +112,14 @@ def get_model_path(config):
     latest_file = max(files, key=os.path.getctime)
     return latest_file
 
-def save_model_dict(config, epoch, model, optimizer, save_check=False):
+def save_model_dict(config, epoch, model, optimizer):
     creat_dir(config)
-    if save_check is False:
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict()},
-            config['Log']['logdir']+f"checkpoint_{epoch}.pth"
-        )
-    else:
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict()},
-            config['Log']['logdir']+'progress_save/'+f"checkpoint_{epoch}.pth"
-        )
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict()},
+        config['Log']['logdir']+'progress_save/'+f"checkpoint_{epoch}.pth"
+    )
 
 def adjust_learning_rate(config, optimizer, epoch):
     """Decay the learning rate based on schedule"""
@@ -157,7 +149,7 @@ class EarlyStopping(object):
             if self.count >= self.patience:
                 self.early_stop_trigger = True
                 print('Saving model for last epoch...')
-                save_model_dict(self.config, epoch, model, optimizer, True)
+                save_model_dict(self.config, epoch, model, optimizer)
                 print('Saving Model Complete')
                 print('Early Stopping Triggered!')
         else:

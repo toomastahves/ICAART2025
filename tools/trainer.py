@@ -158,7 +158,7 @@ class Trainer(object):
             early_stopping(early_stop_index, epoch, self.model, self.optimizer_clft)
             if ((epoch + 1) % self.config['General']['save_epoch'] == 0 and epoch > 0):
                 print('Saving model for every N epochs...')
-                save_model_dict(self.config, epoch, self.model, self.optimizer_clft, True)
+                save_model_dict(self.config, epoch, self.model, self.optimizer_clft)
                 print('Saving Model Complete')
             if early_stopping.early_stop_trigger is True:
                 break
