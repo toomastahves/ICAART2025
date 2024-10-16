@@ -148,7 +148,7 @@ class EarlyStopping(object):
         self.early_stop_trigger = False
         self.count = 0
 
-    def __call__(self, valid_param, epoch, modality, model, optimizer):
+    def __call__(self, valid_param, epoch, model, optimizer):
         if self.min_param is None:
             self.min_param = valid_param
         elif valid_param >= self.min_param:
@@ -161,8 +161,7 @@ class EarlyStopping(object):
                 print('Saving Model Complete')
                 print('Early Stopping Triggered!')
         else:
-            print(f'Valid loss decreased from {self.min_param:.4f} ' +
-                  f'to {valid_param:.4f}')
+            print(f'Valid loss decreased from {self.min_param:.4f} ' + f'to {valid_param:.4f}')
             self.min_param = valid_param
             save_model_dict(self.config, epoch, model, optimizer)
             print('Saving Model...')
