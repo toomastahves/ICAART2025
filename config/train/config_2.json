@@ -19,9 +19,7 @@
         "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_2/progress_save/checkpoint_259.pth"
     },
     "Log": {
-        "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_2/",
-        "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_2/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_2/"
+        "logdir": "/gpfs/mariana/smbhome/totahv/logs/config_2/"
     },
     "CLFT": {
         "emb_dim": 768,

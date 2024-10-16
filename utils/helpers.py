@@ -25,26 +25,12 @@ class_values = [ALL_CLASSES.index(cls.lower()) for cls in ALL_CLASSES]
 
 
 def creat_dir(config):
-    logdir_rgb = config['Log']['logdir_rgb']
-    logdir_lidar = config['Log']['logdir_lidar']
-    logdir_fusion = config['Log']['logdir_fusion']
-    if not os.path.exists(logdir_rgb):
-        os.makedirs(logdir_rgb)
-        print(f'Making log directory {logdir_rgb}...')
-    if not os.path.exists(logdir_lidar):
-        os.makedirs(logdir_lidar)
-        print(f'Making log directory {logdir_lidar}...')
-    if not os.path.exists(logdir_fusion):
-        os.makedirs(logdir_fusion)
-        print(f'Making log directory {logdir_fusion}...')
-
-    if not os.path.exists(logdir_rgb + 'progress_save'):
-        os.makedirs(logdir_rgb + 'progress_save')
-    if not os.path.exists(logdir_lidar + 'progress_save'):
-        os.makedirs(logdir_lidar + 'progress_save')
-    if not os.path.exists(logdir_fusion + 'progress_save'):
-        os.makedirs(logdir_fusion + 'progress_save')
-
+    logdir = config['Log']['logdir']
+    if not os.path.exists(logdir):
+        os.makedirs(logdir)
+        print(f'Making log directory {logdir}...')
+    if not os.path.exists(logdir + 'progress_save'):
+        os.makedirs(logdir + 'progress_save')
 
 def waymo_anno_class_relabel(annotation):
     """
@@ -122,46 +108,26 @@ def get_model_path(config):
     if model_path != '':
         return config['General']['resume_training_model_path']
     # If model path is empty then resume from last checkpoint
-    files = glob.glob(config['Log']['logdir_rgb']+'progress_save/*.pth')
+    files = glob.glob(config['Log']['logdir']+'progress_save/*.pth')
     latest_file = max(files, key=os.path.getctime)
     return latest_file
 
-def save_model_dict(config, epoch, modality, model, optimizer, save_check=False):
-    sensor_modality = modality
+def save_model_dict(config, epoch, model, optimizer, save_check=False):
     creat_dir(config)
     if save_check is False:
-        if sensor_modality == 'rgb':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()},
-                       config['Log']['logdir_rgb']+f"checkpoint_{epoch}.pth")
-        elif sensor_modality == 'lidar':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()},
-                       config['Log']['logdir_lidar']+f"checkpoint_{epoch}.pth")
-        elif sensor_modality == 'cross_fusion':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()},
-                       config['Log']['logdir_fusion']+f"checkpoint_{epoch}.pth")
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict()},
+            config['Log']['logdir']+f"checkpoint_{epoch}.pth"
+        )
     else:
-        if sensor_modality == 'rgb':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()},
-                    config['Log']['logdir_rgb']+'progress_save/'+f"checkpoint_{epoch}.pth")
-        elif sensor_modality == 'lidar':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()}, 
-                    config['Log']['logdir_lidar'] + 'progress_save/' + f"checkpoint_{epoch}.pth")
-        elif sensor_modality == 'cross_fusion':
-            torch.save({'epoch': epoch,
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict()},
-                       config['Log']['logdir_fusion'] + 'progress_save/' + f"checkpoint_{epoch}.pth")
-
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict()},
+            config['Log']['logdir']+'progress_save/'+f"checkpoint_{epoch}.pth"
+        )
 
 def adjust_learning_rate(config, optimizer, epoch):
     """Decay the learning rate based on schedule"""
@@ -191,14 +157,14 @@ class EarlyStopping(object):
             if self.count >= self.patience:
                 self.early_stop_trigger = True
                 print('Saving model for last epoch...')
-                save_model_dict(self.config, epoch, modality, model, optimizer, True)
+                save_model_dict(self.config, epoch, model, optimizer, True)
                 print('Saving Model Complete')
                 print('Early Stopping Triggered!')
         else:
             print(f'Valid loss decreased from {self.min_param:.4f} ' +
                   f'to {valid_param:.4f}')
             self.min_param = valid_param
-            save_model_dict(self.config, epoch, modality, model, optimizer)
+            save_model_dict(self.config, epoch, model, optimizer)
             print('Saving Model...')
             self.count = 0
 
