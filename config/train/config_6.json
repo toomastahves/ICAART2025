@@ -19,9 +19,7 @@
         "model_path":"/gpfs/mariana/smbhome/totahv/logs/config_6/"
     },
     "Log": {
-        "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_6/",
-        "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_6/",
-        "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_6/"
+        "logdir": "/gpfs/mariana/smbhome/totahv/logs/config_6/"
     },
     "CLFT": {
         "emb_dim": 1024,
