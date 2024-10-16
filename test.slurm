@@ -1,13 +1,13 @@
-#!/bin/bash 
-#SBATCH --job-name=test-1                ### job name
+#!/bin/bash
+#SBATCH --job-name=test
 #SBATCH -n 1
-#SBATCH -p gpu                  ### use gpu
-#SBATCH --gres=gpu:A100:1               ### specifying the GPU type
+#SBATCH -p gpu
+#SBATCH --gres=gpu:A100:1
 #SBATCH --constraint="A100-80"
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=40G
-#SBATCH -t 5-0                  ### time limit 
+#SBATCH -t 5-0
 #SBATCH --mail-type=ALL
 
-## run job    
+## run job
 ./test.sh $1

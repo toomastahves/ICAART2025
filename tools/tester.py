@@ -53,15 +53,13 @@ class Tester(object):
         self.nclasses = len(config['Dataset']['classes'])
         self.model.eval()
 
-    def test_clft(self, test_dataloader, modal):
+    def test_clft(self, test_dataloader, modal, test_result_path):
         print('Testing...')
         overlap_cum, pred_cum, label_cum, union_cum = 0, 0, 0, 0
         modality = modal
         with torch.no_grad():
             progress_bar = tqdm(test_dataloader)
 
-            background_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
-            background_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
             cyclist_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
             cyclist_rec = torch.zeros((len(progress_bar)), dtype=torch.float)
             pedestrian_pre = torch.zeros((len(progress_bar)), dtype=torch.float)
@@ -109,6 +107,8 @@ class Tester(object):
             cyclist_AP = auc_ap(cyclist_pre, cyclist_rec)
             pedestrian_AP = auc_ap(pedestrian_pre, pedestrian_rec)
             sign_AP = auc_ap(sign_pre, sign_rec)
+            average_precision = [cyclist_AP, pedestrian_AP, sign_AP]
+
             print('-----------------------------------------')
             print(f'CYCLIST:CUM_IoU->{cum_IoU[0]:.4f} '
                   f'CUM_Precision->{cum_precision[0]:.4f} '
@@ -124,3 +124,11 @@ class Tester(object):
                   f'Average Precision->{sign_AP:.4f} ')
             print('-----------------------------------------')
             print('Testing of the subset completed')
+            self.save_test_results(test_result_path, cum_IoU, cum_precision, cum_recall, average_precision)
+
+    def save_test_results(test_result_path, cum_IoU, cum_precision, cum_recall, average_precision):
+        with open(test_result_path, 'a') as file:
+            file.write('type,cum_IoU,cum_precision,cum_recall,average_precision\n')
+            file.write(f'cyclist,{cum_IoU[0]:.4f},{cum_precision[0]:.4f},{cum_recall[0]:.4f},{average_precision[0]:.4f}\n')
+            file.write(f'pedestrian,{cum_IoU[1]:.4f},{cum_precision[1]:.4f},{cum_recall[1]:.4f},{average_precision[1]:.4f}\n')
+            file.write(f'sign,{cum_IoU[2]:.4f},{cum_precision[2]:.4f},{cum_recall[2]:.4f},{average_precision[2]:.4f}\n')

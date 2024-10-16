@@ -30,5 +30,5 @@ test_dataloader = DataLoader(test_data,
                              pin_memory=True,
                              drop_last=True)
 
-tester.test_clft(test_dataloader, config['CLI']['mode'])
+tester.test_clft(test_dataloader, config['CLI']['mode'], config['Log']['logdir'])
 print('Testing is completed')
