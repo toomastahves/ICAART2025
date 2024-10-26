@@ -103,10 +103,10 @@ def image_overlay(image, segmented_image):
     return image
 
 def get_model_path(config):
-    model_path = config['General']['resume_training_model_path']
+    model_path = config['General']['model_path']
     if model_path != '':
-        return config['General']['resume_training_model_path']
-    # If checkpoint not specified then resume from previous checkpoint
+        return config['General']['model_path']
+    # If model path not specified then take latest checkpoint
     files = glob.glob(config['Log']['logdir']+'progress_save/*.pth')
     if len(files) == 0:
         return False

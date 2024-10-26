@@ -8,6 +8,7 @@ from tqdm import tqdm
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from clfcn.fusion_net import FusionNet
+from utils.helpers import get_model_path
 from utils.metrics import find_overlap
 from utils.metrics import find_overlap_1
 from utils.metrics import auc_ap
@@ -43,7 +44,7 @@ class Tester(object):
                               model_timm=config['CLFT']['model_timm'], )
             print(f"Using backbone {config['CLI']['backbone']}")
 
-            model_path = config['General']['model_path']
+            model_path = get_model_path(config)
             self.model.load_state_dict(torch.load(model_path, map_location=self.device)['model_state_dict'])
 
         else:
