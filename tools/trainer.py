@@ -144,9 +144,6 @@ class Trainer(object):
 
             valid_epoch_loss, valid_epoch_IoU = self.validate_clft(valid_dataloader, modality)
 
-            # self.scheduler_backbone.step(valid_epoch_loss)
-            # self.scheduler_scratch.step(valid_epoch_loss)
-
             # Plot the train and validation loss in Tensorboard
             writer.add_scalars('Loss', {'train': train_epoch_loss, 'valid': valid_epoch_loss}, epoch)
             # Plot the train and validation IoU in Tensorboard
@@ -185,7 +182,7 @@ class Trainer(object):
                 output_seg = output_seg.squeeze(1)
                 anno = batch['anno']
 
-                batch_overlap, batch_pred, batch_label, batch_union = find_overlap_1(self.nclasses, output_seg, anno)
+                batch_overlap, batch_pred, batch_label, batch_union = find_overlap(self.nclasses, output_seg, anno)
 
                 overlap_cum += batch_overlap
                 pred_cum += batch_pred

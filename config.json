@@ -8,7 +8,7 @@
     "General":{
         "device":"cuda:0",
         "epochs":400,
-        "batch_size":32,
+        "batch_size":24,
         "path_predicted_images":"output",
         "seed":0,
         "resume_training":false,
@@ -42,11 +42,6 @@
     },
     "Dataset":{
         "name": "waymo",
-        "splits":{
-            "split_train":0.6,
-            "split_val":0.2,
-            "split_test":0.2
-        },
         "transforms":{
             "resize":384,
             "random_rotate_range":20,
@@ -66,20 +61,16 @@
                 "color": 0
             },
             "1": {
-                "name": "cyclist",
+                "name": "car",
                 "color": 1
             },
             "2": {
-                "name": "pedestrian",
+                "name": "person",
                 "color": 2
             },
             "3": {
-                "name": "sign",
-                "color": 3
-            },
-            "4": {
                 "name": "ignore",
-                "color": 4
+                "color": 3
             }
         }
     }
