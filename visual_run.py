@@ -190,14 +190,14 @@ def run(modality, backbone, config):
                 seg_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/segment')
                 overlay_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/overlay')
 
-                print(f'saving segment result {i}...')
+                print(f'saving segment result {i} to {seg_path}')
                 cv2.imwrite(seg_path, seg_resize)
 
                 rgb_cv2 = cv2.imread(cam_path)
                 rgb_cv2_top = rgb_cv2[160:320, 0:480]
 
                 overlay = image_overlay(rgb_cv2_top, seg_resize)
-                print(f'saving overlay result {i}...')
+                print(f'saving overlay result {i} to {overlay_path}')
                 cv2.imwrite(overlay_path, overlay)
 
         elif backbone == 'clfcn':
