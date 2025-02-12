@@ -190,6 +190,9 @@ def run(modality, backbone, config):
                 seg_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/segment')
                 overlay_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/overlay')
 
+                os.makedirs(os.path.dirname(seg_path), exist_ok=True)
+                os.makedirs(os.path.dirname(overlay_path), exist_ok=True)
+
                 print(f'saving segment result {i} to {seg_path}')
                 cv2.imwrite(seg_path, seg_resize)
 
