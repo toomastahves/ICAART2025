@@ -187,8 +187,8 @@ def run(modality, backbone, config):
                 segmented_image = draw_test_segmentation_map(output_seg)
                 seg_resize = cv2.resize(segmented_image, (480, 160))
 
-                seg_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/segment')
-                overlay_path = cam_path.replace('waymo_dataset/labeled', 'output/clft_seg_results/overlay')
+                seg_path = cam_path.replace('waymo_dataset/labeled', f'output/{config['ID']}/clft_seg_results/segment')
+                overlay_path = cam_path.replace('waymo_dataset/labeled', f'output/{config['ID']}/clft_seg_results/overlay')
 
                 os.makedirs(os.path.dirname(seg_path), exist_ok=True)
                 os.makedirs(os.path.dirname(overlay_path), exist_ok=True)
@@ -209,8 +209,8 @@ def run(modality, backbone, config):
                 output_seg = output_seg[modality]
                 segmented_image = draw_test_segmentation_map(output_seg)
 
-                seg_path = cam_path.replace('waymo_dataset/labeled', 'output/clfcn_seg_results/segment')
-                overlay_path = cam_path.replace('waymo_dataset/labeled', 'output/clfcn_seg_results/overlay')
+                seg_path = cam_path.replace('waymo_dataset/labeled', f'output/{config['ID']}/clft_seg_results/segment')
+                overlay_path = cam_path.replace('waymo_dataset/labeled', f'output/{config['ID']}/clft_seg_results/overlay')
 
                 print(f'saving segment result {i}...')
                 cv2.imwrite(seg_path, segmented_image)

@@ -1,4 +1,5 @@
 {
+    "ID": "config_3",
     "Summary": "CLFT, rgb, 1024, vit_large_patch16_384, [5, 11, 17, 23]",
     "CLI": {
         "backbone": "clft",

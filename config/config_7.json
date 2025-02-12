@@ -1,4 +1,5 @@
 {
+    "ID": "config_7",
     "Summary": "CLFT, cross_fusion, 768, vit_base_patch16_384, [2, 5, 8, 11]",
     "CLI": {
         "backbone": "clft",

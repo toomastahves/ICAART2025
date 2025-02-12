@@ -1,4 +1,5 @@
 {
+    "ID": "config_8",
     "Summary": "CLFT, cross_fusion, 768, vit_base_resnet50_384, [2, 5, 8, 11]",
     "CLI": {
         "backbone": "clft",

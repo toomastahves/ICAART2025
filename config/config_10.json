@@ -1,4 +1,5 @@
 {
+    "ID": "config_10",
     "Summary": "CLFCN, rgb",
     "CLI": {
         "backbone": "clfcn",
@@ -22,6 +23,9 @@
         "logdir_rgb": "/gpfs/mariana/smbhome/totahv/logs/config_10/",
         "logdir_lidar": "/gpfs/mariana/smbhome/totahv/logs/config_10/",
         "logdir_fusion": "/gpfs/mariana/smbhome/totahv/logs/config_10/"
+    },
+    "Visualize": {
+        "model_path": ""
     },
     "CLFT": {
         "emb_dim": 0,
