@@ -122,7 +122,7 @@ def run(modality, backbone, config):
 
     if backbone == 'clfcn':
         model = FusionNet()
-        print(f'Using backbone {args.backbone}')
+        print(f'Using backbone {backbone}')
         checkpoint = torch.load(config['Visualize']['model_path'], map_location=device)
 
         model.load_state_dict(checkpoint['model_state_dict'])
@@ -144,7 +144,7 @@ def run(modality, backbone, config):
             type=config['CLFT']['type'],
             model_timm=config['CLFT']['model_timm'],
             )
-        print(f'Using backbone {args.backbone}')
+        print(f'Using backbone {backbone}')
 
         model_path = config['Visualize']['model_path']
         model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
