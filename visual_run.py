@@ -123,7 +123,7 @@ def run(modality, backbone, config):
     if backbone == 'clfcn':
         model = FusionNet()
         print(f'Using backbone {args.backbone}')
-        checkpoint = torch.load(config['General']['model_path'], map_location=device)
+        checkpoint = torch.load(config['Visualize']['model_path'], map_location=device)
 
         model.load_state_dict(checkpoint['model_state_dict'])
         model.to(device)
@@ -146,7 +146,7 @@ def run(modality, backbone, config):
             )
         print(f'Using backbone {args.backbone}')
 
-        model_path = config['General']['model_path']
+        model_path = config['Visualize']['model_path']
         model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
         model.to(device)
         model.eval()
@@ -154,7 +154,12 @@ def run(modality, backbone, config):
     else:
         sys.exit("A backbone must be specified! (clft or clfcn)")
 
-    data_list = open(args.path, 'r')
+    test_data_path = config['CLI']['path']
+    test_data_files = [
+        'all.txt'
+    ]
+    path = test_data_path + test_data_files[0]
+    data_list = open(path, 'r')
     data_cam = np.array(data_list.read().splitlines())
     data_list.close()
 
@@ -217,20 +222,18 @@ def run(modality, backbone, config):
             sys.exit("A backbone must be specified! (clft or clfcn)")
         i += 1
 
-
+# Run script:
+# python visual_run.py --config ./config/config_1.json
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='visual run script')
-    parser.add_argument('-m', '--mode', type=str, required=True,
-                        choices=['rgb', 'lidar', 'cross_fusion'],
-                        help='Output mode (lidar, rgb or cross_fusion)')
-    parser.add_argument('-bb', '--backbone', required=True,
-                        choices=['clfcn', 'clft'],
-                        help='Use the backbone of training, clft or clfcn')
-    parser.add_argument('-p', '--path', type=str, required=True,
-                        help='The path of the text file to visualize')
+    parser = argparse.ArgumentParser(description='Visual Run Script')
+    parser.add_argument('-c', '--config', type=str, required=False, default='config.json', help='The path of the config file')
     args = parser.parse_args()
+    config_file = args.config
 
-    with open('config.json', 'r') as f:
-        configs = json.load(f)
+    with open(config_file, 'r') as f:
+        config = json.load(f)
 
-    run(args.mode, args.backbone, configs)
+    mode = config['CLI']['mode']
+    backbone = config['CLI']['backbone']
+
+    run(mode, backbone, config)

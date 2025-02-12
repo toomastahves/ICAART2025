@@ -20,6 +20,9 @@
     "Log": {
         "logdir": "/gpfs/mariana/smbhome/totahv/logs/config_3/"
     },
+    "Visualize": {
+        "model_path": "/gpfs/mariana/smbhome/totahv/logs/config_3/progress_save/checkpoint_399.pth"
+    },
     "CLFT": {
         "emb_dim": 1024,
         "hooks": [5, 11, 17, 23],
