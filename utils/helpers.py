@@ -12,7 +12,7 @@ label_colors_list = [
         (0, 0, 0),        # B
         (0, 255, 0),            # G
         (0, 0, 255),            # R
-        (100, 100, 100)]
+        (255, 0, 0)]
 
 # all the classes that are present in the dataset
 ALL_CLASSES = ['background', 'vehicle', 'human', 'ignore']
